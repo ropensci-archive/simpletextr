@@ -40,10 +40,54 @@ You can install the released version of simpletextr from
 devtools::install_github("ropenscilabs/simpletextr")
 ```
 
-## Example
+## Simple Cleaning
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to clean a small twitter
+dataset from `#ozunconf18`:
 
 ``` r
-## basic example code
+
+library(simpletextr)
+
+text <- ozunconf18_tweets$text
+
+cleaned <- clean_text(text, stop_words = 'rt')
 ```
+
+Now we can see the difference between a raw tweet:
+
+> RT @fidlerfm: Excited about tomorrow’s talk by Franca Agnoli on
+> failures to replicate stereotype threat effects in girls’ mathematics
+> perfo…
+
+and the same tweet cleaned:
+
+> fidlerfm excited tomorrows talk franca agnoli failures replicate
+> stereotype threat effects girls mathematics perfo…
+
+## Simple Outputs
+
+### Term Table
+
+``` r
+
+tt <- term_table(cleaned)
+```
+
+| term     | count |
+| :------- | ----: |
+|          |    26 |
+| ozunconf |    24 |
+| moving   |    23 |
+| https    |    22 |
+| day      |    21 |
+| nj       |    13 |
+
+### Wordcloud
+
+``` r
+
+wordcloud::wordcloud(tt$term, tt$count, col = RColorBrewer::brewer.pal(8, 'Set2'), min.freq='5')
+```
+
+<img src="man/figures/README-wc-1.png" width="100%" />

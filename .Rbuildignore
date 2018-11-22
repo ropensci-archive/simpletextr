@@ -3,3 +3,4 @@
 ^README\.Rmd$
 ^simpletextr\.Rproj$
 ^\.Rproj\.user$
+^\.httr-oauth$

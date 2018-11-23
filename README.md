@@ -117,18 +117,3 @@ wordcloud::wordcloud(tidy_tt$term, tidy_tt$count, col = RColorBrewer::brewer.pal
 ```
 
 <img src="man/figures/README-tidy-1.png" width="100%" />
-
-### rstats tweets
-
-``` r
-
-rs <- rstats_tweets %>%
-  filter(!str_detect(text, "^RT")) %>%
-  unnest_tokens(word, text, token = 'tweets') 
-
-rs_tt <- term_table(rs$word)
-
-wordcloud::wordcloud(rs_tt$term, rs_tt$count, col = RColorBrewer::brewer.pal(8, 'Set2'), min.freq='5')
-```
-
-<img src="man/figures/README-rstats-1.png" width="100%" />

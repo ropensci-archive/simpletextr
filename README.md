@@ -91,3 +91,44 @@ wordcloud::wordcloud(tt$term, tt$count, col = RColorBrewer::brewer.pal(8, 'Set2'
 ```
 
 <img src="man/figures/README-wc-1.png" width="100%" />
+
+## Comparison with Tidytext
+
+After reading [Text Mining with R](https://www.tidytextmining.com/) it
+appears many of the objectives of this package are already met by the
+`tidytext` package. There is still some value in a package such as
+`simpletextr`. But better understanding of current tools is required for
+this value to be identified.
+
+### ozunconf18 Tweets
+
+``` r
+
+library(dplyr)
+library(tidytext)
+library(stringr)
+
+tv <- ozunconf18_tweets %>%
+  unnest_tokens(word, text, token = 'tweets') 
+
+tidy_tt <- term_table(tv$word)
+
+wordcloud::wordcloud(tidy_tt$term, tidy_tt$count, col = RColorBrewer::brewer.pal(8, 'Set2'), min.freq='5')
+```
+
+<img src="man/figures/README-tidy-1.png" width="100%" />
+
+### rstats tweets
+
+``` r
+
+rs <- rstats_tweets %>%
+  filter(!str_detect(text, "^RT")) %>%
+  unnest_tokens(word, text, token = 'tweets') 
+
+rs_tt <- term_table(rs$word)
+
+wordcloud::wordcloud(rs_tt$term, rs_tt$count, col = RColorBrewer::brewer.pal(8, 'Set2'), min.freq='5')
+```
+
+<img src="man/figures/README-rstats-1.png" width="100%" />
